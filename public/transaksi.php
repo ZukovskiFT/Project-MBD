@@ -202,11 +202,11 @@ body {
 
 <div class="topbar">
     <div>
-        <h1><i class="fa-solid fa-cash-register" style="margin-right:8px"></i>Kasir - Point of Sale</h1>
+        <h1><i class="fa-solid fa-cash-register" style="margin-right:8px"></i>Kasir - Surya Makmur</h1>
         <p>Toko Elektronik Surya Makmur</p>
     </div>
     <div class="topbar-nav">
-        <a href="index.php" class="nav-btn"><i class="fa-solid fa-box"></i> Katalog Barang</a>
+        <a href="index.php" class="nav-btn"><i class="fa-solid fa-box"></i> Data Barang</a>
         <a href="transaksi.php" class="nav-btn active"><i class="fa-solid fa-cash-register"></i> Kasir</a>
         <a href="riwayat_transaksi.php" class="nav-btn"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat</a>
     </div>
@@ -294,8 +294,10 @@ body {
             </div>
 
             <div class="form-group">
-                <label>Nama Pelanggan (opsional)</label>
                 <input type="text" id="nama_pelanggan" class="form-control" placeholder="Masukkan nama pelanggan...">
+                <small id="errorNama" style="color:red; display:none;">
+                    Nama pelanggan tidak boleh mengandung angka!
+                </small>
             </div>
 
             <!-- Daftar Item Keranjang -->
@@ -488,6 +490,7 @@ function hitungKembalian() {
 document.getElementById('nama_pelanggan').addEventListener('input', hitungKembalian);
 
 function prosesBayar() {
+
     const ids  = Object.keys(keranjang);
     if (!ids.length) return;
 
@@ -495,14 +498,35 @@ function prosesBayar() {
     const bayar   = parseInt(document.getElementById('jumlah_bayar').value) || 0;
     const kasirId = parseInt(document.getElementById('pilih_kasir').value) || 0;
 
-    if (!kasirId) { tampilToast('Pilih kasir terlebih dahulu!', 'error'); return; }
+    const error = document.getElementById('errorNama');
+
+    if (/[^a-zA-Z\s]/.test(nama)) {
+        error.style.display = "block";
+        return;
+    } else {
+        error.style.display = "none";
+    }
+
+    if (!kasirId) { 
+        tampilToast('Pilih kasir terlebih dahulu!', 'error'); 
+        return; 
+    }
 
     let total = 0;
+
     const items = ids.map(id => {
         const item = keranjang[id];
         const sub  = item.harga * item.jumlah;
+
         total += sub;
-        return { id_barang: id, nama_barang: item.nama, harga_satuan: item.harga, jumlah: item.jumlah, subtotal: sub };
+
+        return {
+            id_barang: id,
+            nama_barang: item.nama,
+            harga_satuan: item.harga,
+            jumlah: item.jumlah,
+            subtotal: sub
+        };
     });
 
     if (bayar < total) { tampilToast('Jumlah bayar kurang!', 'error'); return; }
@@ -592,6 +616,15 @@ function tampilToast(pesan, tipe = 'sukses') {
 window.onload = () => {
     const s = new URLSearchParams(window.location.search).get('status');
     if (s === 'success') tampilToast('Transaksi berhasil disimpan!');
+}
+
+function validasiNama(input) {
+    let value = input.value;
+
+    if (/[^a-zA-Z\s]/.test(value)) {
+        alert("Nama pelanggan tidak boleh mengandung angka!");
+        input.value = value.replace(/[^a-zA-Z\s]/g, '');
+    }
 };
 </script>
 </body>
