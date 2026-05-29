@@ -83,22 +83,31 @@ body {
 .topbar-brand p  { font-size: 11.5px; color: rgba(255,255,255,0.6); }
 
 .topbar-nav { display: flex; gap: 6px; }
+/* ── Navigasi yang stabil (Tidak bergeser) ── */
 .nav-btn {
-    display: flex; align-items: center; gap: 7px; padding: 8px 14px;
-    border-radius: 10px; color: white; text-decoration: none;
-    font-size: 13px; font-weight: 600; transition: 0.2s;
-    /* Kasih border transparan biar ukurannya "dipesan" sejak awal */
-    border: 1.5px solid transparent; 
+    display: flex; 
+    align-items: center; 
+    gap: 7px; 
+    padding: 8px 14px;
+    border-radius: 10px; 
+    color: white; 
+    text-decoration: none;
+    font-size: 13px; 
+    font-weight: 600; 
+    transition: 0.2s;
+    /* Memberikan border samar secara default agar ukuran tombol sudah dipesan */
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
 }
 
 .nav-btn:hover { 
-    background: rgba(255,255,255,0.15); 
-    border: 1.5px solid rgba(255,255,255,0.3); /* Border samar saat hover */
+    background: rgba(255, 255, 255, 0.15); 
+    border: 1.5px solid rgba(255, 255, 255, 0.5); /* Border jadi lebih tegas saat hover */
 }
 
 .nav-btn.active { 
-    background: rgba(255,255,255,0.2); 
-    border: 1.5px solid white; /* Border putih solid saat aktif */
+    background: rgba(255, 255, 255, 0.2); 
+    /* Tetap 1.5px, jadi tidak akan ada pergeseran layout */
+    border: 1.5px solid white; 
 }
 
 .topbar-user {
