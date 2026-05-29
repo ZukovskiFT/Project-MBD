@@ -151,13 +151,14 @@ body {
 table { width: 100%; border-collapse: collapse; }
 thead tr { background: transparent; }
 
-td { 
+th {
+    background: linear-gradient(135deg, #1e3a5f, #2563eb); 
     padding: 16px 14px; 
-    font-size: 16px; 
-    color: #334155; 
-    border-bottom: 1px solid #f1f5f9; 
-    vertical-align: middle; 
-    text-align: center; /* Tambahkan baris ini untuk memusatkan teks */
+    color: white; 
+    font-weight: 600; 
+    text-align: left; 
+    font-size: 17px; 
+    border: none;
 }
 
 td { 
@@ -166,6 +167,7 @@ td {
     color: #334155; 
     border-bottom: 1px solid #f1f5f9; 
     vertical-align: middle; 
+    text-align: center;
 }
 
 tbody tr:nth-child(even) { background: #f8fafc; }
