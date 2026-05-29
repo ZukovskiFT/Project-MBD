@@ -160,10 +160,6 @@ CREATE TABLE `detail_transaksi` (
 
 -- --------------------------------------------------------
 
---
--- Struktur dari tabel `admin`
---
-
 CREATE TABLE IF NOT EXISTS `admin` (
   `id_admin` INT NOT NULL AUTO_INCREMENT,
   `nama`     VARCHAR(100) NOT NULL,
@@ -174,7 +170,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `admin`
+-- Struktur dari tabel `admin
 --
 
 INSERT INTO `admin` (`id_admin`, `nama`, `username`, `password`) VALUES
