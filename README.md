@@ -185,58 +185,103 @@ File SQL sudah menyertakan **10 kategori** dan **100 data barang** contoh:
 | Akesoris Elektronik   | 10             |
 ---
 
-## Fitur Sistem
+# Fitur Sistem
 
-1. Autentikasi Pengguna
-- Register akun kasir
-- Login pengguna
+1. Authentication
+- Login Admin
+- Login Kasir
 - Logout
-- Proteksi halaman menggunakan session
-- Redirect otomatis jika belum login
+- Session Authentication
+- Proteksi halaman berdasarkan role user
+
+---
 
 2. Manajemen Barang
 - Menampilkan daftar barang
 - Tambah barang
 - Edit barang
 - Hapus barang
-- Relasi barang dengan kategori
+- Filter berdasarkan kategori
+
+---
 
 3. Manajemen Kategori
-- Menampilkan daftar kategori
 - Tambah kategori
 - Edit kategori
 - Hapus kategori
 
-4. Sistem Transaksi
-- Menambahkan transaksi penjualan
-- Menghitung total transaksi
-- Menyimpan detail transaksi ke database
-- Membatalkan transaksi
+---
 
-5. Riwayat Transaksi
-- Menampilkan seluruh riwayat transaksi
-- Menampilkan detail transaksi per transaksi
-- Melihat barang yang dibeli pada setiap transaksi
+4. Manajemen Transaksi
+- Input transaksi penjualan
+- Detail transaksi
+- Riwayat transaksi
+- Batalkan transaksi
 
-6. Dashboard
-- Statistik jumlah barang per kategori
-- Ringkasan data barang
-- Tampilan dashboard setelah login
+---
 
-7. UI/UX
-- Modal form popup tanpa reload penuh
-- AJAX request untuk beberapa aksi
-- Notifikasi toast setelah aksi berhasil
-- Responsive layout sederhana berbasis web
+5. Dashboard Admin
+- Kelola data kasir
+- Tambah akun kasir
+- Edit akun kasir
+- Hapus akun kasir
+- Monitoring data barang
+
+---
+
+6. Laporan
+- Rekap laporan transaksi
+- Histori transaksi penjualan
+
+---
+
+# Konsep Database yang Diterapkan
+
+Project ini menerapkan konsep:
+
+- Entity Relationship Diagram (ERD)
+- Relasi antar tabel
+- Foreign Key Constraint
+- Query JOIN
+- Aggregation Query
+- CRUD Database
+- Session-based Authentication
+- Role-based Access Control (Admin & Kasir)
+
+---
+
+# Akun Login
+
+Gunakan akun yang tersedia di database setelah import.
+
+Contoh:
+
+## Admin
+```text
+Username : admin
+Password : admin
+```
+
+## Kasir
+```text
+Username : kasir
+Password : kasir
+```
+
+> Sesuaikan dengan data pada tabel `kasir` di database apabila berbeda.
 
 ---
 
 ## Konsep Database yang Diterapkan
 
-- ERD & Skema Relasional
-- Query JOIN (barang ↔ kategori)
+- Entity Relationship Diagram (ERD)
+- Relasi antar tabel
+- Query JOIN
+- Aggregation Query
+- CRUD Database
+- Session-based Authentication
+- Role-based Access Control (Admin & Kasir)
 - Relasi Foreign Key dengan CASCADE
-- Koneksi PDO MySQL dengan error handling
 
 ---
 
