@@ -259,13 +259,13 @@ Contoh:
 ## Admin
 ```text
 Username : admin
-Password : admin
+Password : admin123
 ```
 
 ## Kasir
 ```text
-Username : kasir
-Password : kasir
+Username : akuntesting1
+Password : kasir123
 ```
 
 > Sesuaikan dengan data pada tabel `kasir` di database apabila berbeda.
