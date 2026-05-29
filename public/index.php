@@ -93,7 +93,12 @@ td {
 }
 
 td.nama { text-align: left; font-weight: 400; } 
-.harga { color: #0369a1; font-weight: bold; font-size: 16.5px; }
+.harga { 
+    color: #0369a1; 
+    font-weight: bold; 
+    text-align: center !important;
+    display: block;                
+}
 
 tr:nth-child(even) { background: #f8fafc; }
 tr:nth-child(odd)  { background: white; }
