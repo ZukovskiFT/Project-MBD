@@ -169,8 +169,10 @@ CREATE TABLE IF NOT EXISTS `admin` (
   UNIQUE KEY `uq_admin_username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- -------------------------------------------------------
+
 --
--- Struktur dari tabel `admin
+-- Struktur dari tabel `admin'
 --
 
 INSERT INTO `admin` (`id_admin`, `nama`, `username`, `password`) VALUES
