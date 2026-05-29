@@ -48,33 +48,43 @@ http://projectmbd.infinityfreeapp.com/
 Project_MBD/
 │
 ├── config/
-│   ├── auth_check.php             ← Proteksi halaman login/session
-│   └── database.php               ← Konfigurasi koneksi database
+│   ├── auth_check.php
+│   ├── auth_check_admin.php
+│   └── database.php
 │
 ├── process/
+│   ├── admin_delete_kasir.php
+│   ├── admin_insert_kasir.php
+│   ├── admin_update_kasir.php
+│   │
 │   ├── auth_login.php
-│   ├── auth_register.php
 │   ├── logout.php
+│   │
 │   ├── insert.php
-│   ├── insert_kategori.php
-│   ├── insert_transaksi.php
 │   ├── update.php
-│   ├── update_kategori.php
 │   ├── delete.php
+│   │
+│   ├── insert_kategori.php
+│   ├── update_kategori.php
 │   ├── delete_kategori.php
+│   │
+│   ├── insert_transaksi.php
 │   ├── batal_transaksi.php
 │   └── get_detail_transaksi.php
 │
 ├── public/
-│   ├── index.php                   ← Halaman utama / dashboard
-│   ├── register.php
+│   ├── index.php
 │   ├── login.php
 │   ├── transaksi.php
 │   ├── riwayat_transaksi.php
 │   ├── tambah.php
-│   ├── tambah_kategori.php
 │   ├── edit.php
-│   └── hapus.php
+│   ├── hapus.php
+│   ├── tambah_kategori.php
+│   │
+│   ├── admin_dashboard.php
+│   ├── admin_barang.php
+│   └── admin_laporan.php
 │
 ├── tokoelektroniksuryamakmur.sql   ← File SQL siap import
 └── README.md
