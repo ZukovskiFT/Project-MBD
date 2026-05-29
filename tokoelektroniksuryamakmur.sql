@@ -324,8 +324,8 @@ INSERT INTO `kasir` (`id_kasir`, `nama_kasir`, `username`, `password`) VALUES
 (1, 'Dzulfikar Nuril Al-Amien', 'dzulfikar', 'dzulfikar123'),
 (2, 'Zukovski Tangguh Dirgantara', 'zukovski', 'zukovski123'),
 (3, 'Dhimas Dwi Prasetyo', 'dhimas', 'dhimas123'),
-(4, 'Dewi Lestari', 'dewi', 'dewi321'),
-(5, 'Rizky Pratama', 'rizky', 'rizky654');
+(4, 'Akun Testing 1', 'akuntesting1', 'kasir123'),
+(5, 'Akun Testing 2', 'akuntesting2', 'kasir123');
 
 -- --------------------------------------------------------
 
