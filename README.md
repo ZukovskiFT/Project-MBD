@@ -272,19 +272,6 @@ Password : kasir
 
 ---
 
-## Konsep Database yang Diterapkan
-
-- Entity Relationship Diagram (ERD)
-- Relasi antar tabel
-- Query JOIN
-- Aggregation Query
-- CRUD Database
-- Session-based Authentication
-- Role-based Access Control (Admin & Kasir)
-- Relasi Foreign Key dengan CASCADE
-
----
-
 ## Lisensi
 
 Project ini dibuat untuk keperluan akademik sebagai tugas Mata Kuliah Manajemen Basis Data (MBD).
