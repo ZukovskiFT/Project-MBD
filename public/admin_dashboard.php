@@ -76,10 +76,19 @@ body {
     display: flex; align-items: center; gap: 7px; padding: 8px 14px;
     border-radius: 10px; color: white; text-decoration: none;
     font-size: 13px; font-weight: 600; transition: 0.2s;
-    border: 1.5px solid rgba(255,255,255,0.3);
+    /* Kasih border transparan biar ukurannya "dipesan" sejak awal */
+    border: 1.5px solid transparent; 
 }
-.nav-btn:hover  { background: rgba(255,255,255,0.15); }
-.nav-btn.active { background: rgba(255,255,255,0.2); border-color: white;}
+
+.nav-btn:hover { 
+    background: rgba(255,255,255,0.15); 
+    border: 1.5px solid rgba(255,255,255,0.3); /* Border samar saat hover */
+}
+
+.nav-btn.active { 
+    background: rgba(255,255,255,0.2); 
+    border: 1.5px solid white; /* Border putih solid saat aktif */
+}
 
 .topbar-user {
     display: flex; align-items: center; gap: 10px;
