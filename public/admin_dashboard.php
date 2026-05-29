@@ -156,7 +156,7 @@ th {
     padding: 16px 14px; 
     color: white; 
     font-weight: 600; 
-    text-align: left; 
+    text-align: center; /* Tambahkan ini agar judul ke tengah */
     font-size: 17px; 
     border: none;
 }

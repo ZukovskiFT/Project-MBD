@@ -75,14 +75,12 @@ body {
 .table-box { background: white; padding: 24px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
 table { width: 100%; border-collapse: collapse; border-radius: 12px; overflow: hidden; }
 
-/* Ukuran header tabel dibesarkan ke 17px dan padding ditambah */
 th { 
     background: linear-gradient(135deg, #1e3a5f, #2563eb); 
-    padding: 16px 14px; 
+    padding: 13px; 
     color: white; 
     font-weight: 600; 
-    text-align: center; 
-    font-size: 17px; 
+    text-align: center !important; /* Pakai !important supaya pasti ke tengah */
 }
 
 /* Ukuran isi tabel dibesarkan ke 16px dan padding ditambah */
