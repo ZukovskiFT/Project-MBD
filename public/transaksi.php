@@ -202,7 +202,7 @@ body {
 
 <div class="topbar">
     <div>
-        <h1><i class="fa-solid fa-cash-register" style="margin-right:8px"></i>Kasir - Surya Makmur</h1>
+        <h1><i class="fa-solid fa-cash-register" style="margin-right:8px"></i>Kasir - Point of Sale</h1>
         <p>Toko Elektronik Surya Makmur</p>
     </div>
     <div class="topbar-nav">
