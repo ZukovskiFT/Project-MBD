@@ -206,7 +206,7 @@ body {
         <p>Toko Elektronik Surya Makmur</p>
     </div>
     <div class="topbar-nav">
-        <a href="index.php" class="nav-btn"><i class="fa-solid fa-box"></i> Data Barang</a>
+        <a href="index.php" class="nav-btn"><i class="fa-solid fa-box"></i> Katalog Barang</a>
         <a href="transaksi.php" class="nav-btn active"><i class="fa-solid fa-cash-register"></i> Kasir</a>
         <a href="riwayat_transaksi.php" class="nav-btn"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat</a>
     </div>
