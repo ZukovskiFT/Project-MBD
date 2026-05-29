@@ -151,14 +151,13 @@ body {
 table { width: 100%; border-collapse: collapse; }
 thead tr { background: transparent; }
 
-th {
-    background: linear-gradient(135deg, #1e3a5f, #2563eb); 
+td { 
     padding: 16px 14px; 
-    color: white; 
-    font-weight: 600; 
-    text-align: left; 
-    font-size: 17px; 
-    border: none;
+    font-size: 16px; 
+    color: #334155; 
+    border-bottom: 1px solid #f1f5f9; 
+    vertical-align: middle; 
+    text-align: center; /* Tambahkan baris ini untuk memusatkan teks */
 }
 
 td { 
