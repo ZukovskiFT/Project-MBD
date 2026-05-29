@@ -156,16 +156,37 @@ body {
 .form-control:focus { border-color: #2563eb; }
 
 /* ── Table ── */
-.table-wrap { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; }
-thead tr { background: #f1f5f9; }
+/* ── Table ── */
+.table-wrap { overflow-x: auto; border-radius: 12px; }
+table { width: 100%; border-collapse: collapse; overflow: hidden; }
+
+thead tr { background: transparent; }
+
 th {
-    padding: 12px 18px; text-align: left; font-size: 11.5px;
-    font-weight: 700; color: #64748b; text-transform: uppercase; border-bottom: 2px solid #e2e8f0;
+    background: linear-gradient(135deg, #1e3a5f, #2563eb); 
+    padding: 12px 18px; 
+    color: white; 
+    font-weight: 600; 
+    text-align: center !important; /* Memaksa judul kolom ke tengah */
+    font-size: 13.5px; 
+    border: none;
+    text-transform: none; /* Menghilangkan huruf kapital semua (uppercase) bawaan lama */
 }
-td { padding: 13px 18px; font-size: 13.5px; color: #374151; border-bottom: 1px solid #f8f9fa; }
-tbody tr:hover { background: #fafbff; }
-.kode-badge { font-weight: 700; color: #1e3a5f; font-size: 12.5px; background: #f1f5f9; padding: 4px 8px; border-radius: 6px; }
+
+td { 
+    padding: 13px 18px; 
+    font-size: 13.5px; 
+    color: #374151; 
+    border-bottom: 1px solid #f1f5f9; 
+    /*text-align: left; /* Menyesuaikan isi tabel agar rata tengah mengikuti judulnya */
+    vertical-align: middle;
+}
+
+tbody tr:nth-child(even) { background: #f8fafc; }
+tbody tr:nth-child(odd)  { background: white; }
+tbody tr:hover { background: #e0f2fe; }
+
+.kode-badge { font-weight: 700; color: #1e3a5f; font-size: 13.5px; background: #f1f5f9; padding: 4px 10px; border-radius: 6px; }
 
 /* ── Buttons ── */
 .btn {
@@ -193,6 +214,25 @@ tbody tr:hover { background: #fafbff; }
     .main { padding: 0; }
     .card { box-shadow: none; border: 1px solid #cbd5e1; }
 }
+
+/* ── Tombol Detail ── */
+.btn-detail { background: #e0f2fe; color: #0369a1; border: none; padding: 5px 12px; border-radius: 7px; cursor: pointer; font-size: 12.5px; font-family: 'Poppins', sans-serif; font-weight: 600; transition: 0.15s; }
+.btn-detail:hover { background: #0ea5e9; color: white; }
+
+/* ── Modal Detail Transaksi ── */
+.modal-overlay { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(15,23,42,0.45); backdrop-filter: blur(8px); align-items: center; justify-content: center; }
+.modal-content { background: white; border-radius: 16px; padding: 28px; width: 100%; max-width: 520px; box-shadow: 0 16px 48px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto; }
+.modal-title { font-size: 18px; font-weight: 700; color: #1e3a5f; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+.detail-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px dashed #f1f5f9; font-size: 13.5px; }
+.detail-row .label { color: #64748b; }
+.detail-row .val   { font-weight: 600; color: #1e293b; }
+.detail-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 13.5px; }
+.detail-table th { background: #f1f5f9; padding: 9px 12px; color: #475569; font-weight: 600; text-align: left; border-radius: 6px; border:none;}
+.detail-table td { padding: 9px 12px; border-bottom: 1px solid #f8fafc; }
+.detail-table td:last-child { text-align: right; font-weight: 600; color: #0369a1; }
+.detail-total { display: flex; justify-content: space-between; font-size: 16px; font-weight: 700; color: #1e3a5f; padding: 12px 0 0; border-top: 2px solid #1e3a5f; margin-top: 10px; }
+.btn-tutup { width: 100%; padding: 11px; margin-top: 20px; border-radius: 10px; background: #1e3a5f; color: white; font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 600; border: none; cursor: pointer; }
+.btn-tutup:hover { background: #2563eb; }
 </style>
 </head>
 <body>
@@ -268,7 +308,7 @@ tbody tr:hover { background: #fafbff; }
                         <th>Nama Kasir</th>
                         <th style="text-align:center;">Item</th>
                         <th style="text-align:right;">Total Belanja</th>
-                    </tr>
+                        <th style="text-align:center;">Aksi</th> </tr>
                 </thead>
                 <tbody>
                 <?php if (empty($laporan)): ?>
@@ -287,6 +327,12 @@ tbody tr:hover { background: #fafbff; }
                         <td><i class="fa-regular fa-user" style="color:#64748b; margin-right:5px;"></i> <?= htmlspecialchars($trx['nama_kasir'] ?? 'Kasir Dihapus') ?></td>
                         <td style="text-align:center;"><?= $trx['jml_item'] ?> <span style="color:#94a3b8; font-size:12px;">item</span></td>
                         <td style="text-align:right; font-weight:600; color:#0369a1;">Rp <?= number_format($trx['total'], 0, ',', '.') ?></td>
+                        
+                        <td style="text-align:center;">
+                            <button class="btn-detail" onclick="lihatDetail(<?= $trx['id_transaksi'] ?>)">
+                                <i class="fa-solid fa-eye"></i> Detail
+                            </button>
+                        </td>
                     </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
@@ -312,6 +358,71 @@ tbody tr:hover { background: #fafbff; }
         <?php endif; ?>
     </div>
 </div>
+
+<div id="modalDetail" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-title">
+            <i class="fa-solid fa-receipt" style="color:#2563eb"></i>
+            Detail Transaksi
+        </div>
+        <div id="detailBody">Memuat...</div>
+        <button class="btn-tutup" onclick="tutupDetail()">Tutup</button>
+    </div>
+</div>
+
+<script>
+// Fungsi untuk memanggil detail barang ke layar popup
+function lihatDetail(id) {
+    document.getElementById('detailBody').innerHTML = '<p style="text-align:center;padding:20px;color:#64748b;">Memuat detail...</p>';
+    document.getElementById('modalDetail').style.display = 'flex';
+
+    fetch('../process/get_detail_transaksi.php?id=' + id)
+    .then(r => r.json())
+    .then(data => {
+        if (!data.success) {
+            document.getElementById('detailBody').innerHTML = '<p style="color:#ef4444;text-align:center;">Gagal memuat data: ' + (data.message || '') + '</p>';
+            return;
+        }
+        const t = data.transaksi;
+        const d = data.detail;
+
+        let rows = '';
+        d.forEach(item => {
+            rows += `<tr>
+                <td>${item.nama_barang}</td>
+                <td style="text-align:center;">${item.jumlah}</td>
+                <td>Rp ${parseInt(item.harga_satuan).toLocaleString('id-ID')}</td>
+                <td>Rp ${parseInt(item.subtotal).toLocaleString('id-ID')}</td>
+            </tr>`;
+        });
+
+        const tgl = new Date(t.tanggal);
+        const tglFormatted = isNaN(tgl) ? t.tanggal : tgl.toLocaleString('id-ID');
+
+        document.getElementById('detailBody').innerHTML = `
+            <div class="detail-row"><span class="label">Kode Transaksi</span><span class="val" style="color:#2563eb;">${t.kode_transaksi}</span></div>
+            <div class="detail-row"><span class="label">Kasir</span><span class="val">${t.nama_kasir}</span></div>
+            <div class="detail-row"><span class="label">Tanggal</span><span class="val">${tglFormatted}</span></div>
+            <table class="detail-table" style="margin-top:16px;">
+                <thead><tr><th>Barang</th><th style="text-align:center;">Qty</th><th>Harga Satuan</th><th style="text-align:right;">Subtotal</th></tr></thead>
+                <tbody>${rows}</tbody>
+            </table>
+            <div class="detail-total"><span>TOTAL</span><span>Rp ${parseInt(t.total).toLocaleString('id-ID')}</span></div>
+        `;
+    })
+    .catch(err => {
+        document.getElementById('detailBody').innerHTML = '<p style="color:#ef4444;text-align:center;">Terjadi kesalahan koneksi.</p>';
+    });
+}
+
+function tutupDetail() {
+    document.getElementById('modalDetail').style.display = 'none';
+}
+
+window.onclick = e => {
+    if (e.target === document.getElementById('modalDetail')) tutupDetail();
+};
+</script>
 
 </body>
 </html>
