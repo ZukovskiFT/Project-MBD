@@ -71,28 +71,36 @@ body {
 .kat-color-6 { background: linear-gradient(135deg, #ef4444, #f87171); }
 .kat-color-7 { background: linear-gradient(135deg, #64748b, #94a3b8); }
 
-/* Tabel */
+/* ── Tabel ── */
 .table-box { background: white; padding: 24px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
 table { width: 100%; border-collapse: collapse; border-radius: 12px; overflow: hidden; }
 
+/* Header Tabel */
 th { 
     background: linear-gradient(135deg, #1e3a5f, #2563eb); 
-    padding: 13px; 
+    padding: 16px 14px; 
     color: white; 
     font-weight: 600; 
-    text-align: center !important; /* Pakai !important supaya pasti ke tengah */
+    text-align: center !important; 
+    font-size: 16px;
 }
 
-/* Ukuran isi tabel dibesarkan ke 16px dan padding ditambah */
+/* Isi Tabel - Default semua ke tengah */
 td { 
     padding: 16px 14px; 
-    text-align: center; 
+    text-align: center !important; 
     color: #334155; 
-    font-size: 16px; 
+    font-size: 15px; 
     border-bottom: 1px solid #f1f5f9;
 }
 
-td.nama { text-align: left; font-weight: 400; } 
+/* Pengecualian: Nama Barang (Tetap Rata Kiri) */
+td.nama { 
+    text-align: left !important; 
+    font-weight: 400; 
+} 
+
+/* Harga */
 .harga { 
     color: #0369a1; 
     font-weight: bold; 
@@ -100,6 +108,7 @@ td.nama { text-align: left; font-weight: 400; }
     display: block;                
 }
 
+/* Efek Zebra Striping */
 tr:nth-child(even) { background: #f8fafc; }
 tr:nth-child(odd)  { background: white; }
 tr:hover           { background: #e0f2fe; }
