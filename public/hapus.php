@@ -21,8 +21,10 @@ $data = $stmt->fetch(PDO::FETCH_ASSOC);
         <strong style="color: #0369a1; font-size: 18px;"><?= $data['nama_barang']; ?></strong> ?
     </p>
     
-    <div style="display: flex; gap: 10px; justify-content: center;">
-        <button class="btn" style="background: #f1f5f9; color: #475569; border: 1.5px solid #e2e8f0; padding: 10px 20px;" onclick="tutupModal()">Batal</button>
-        <a href="../process/delete.php?id_barang=<?= $data['id_barang']; ?>" class="btn btn-hapus" style="padding: 10px 20px;">Ya, Hapus</a>
+    <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" onclick="tutupModal()">Batal</button>
+        <a href="../process/delete.php?id=<?= $id_barang ?>" class="btn btn-danger" id="btn_hapus_submit">
+            <i class="fa-solid fa-trash"></i> Ya, Hapus
+        </a>
     </div>
 </div>

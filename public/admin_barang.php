@@ -42,6 +42,35 @@ body {
     min-height: 100vh; color: #1e293b;
 }
 
+/* ── Tombol Gradient untuk Modal ── */
+.btn-gradient-blue {
+    background: linear-gradient(135deg, #1e3a5f, #2563eb);
+    color: white;
+    padding: 10px 24px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    transition: 0.2s;
+    text-decoration: none; /* Biar kalau pakai tag <a> tidak ada garis bawah */
+    display: inline-block;
+}
+
+.btn-gradient-red {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    padding: 10px 24px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-gradient-blue:hover, .btn-gradient-red:hover { opacity: 0.9; transform: translateY(-2px); }
+
 /* ── Topbar Admin ── */
 .topbar {
     background: linear-gradient(135deg, #1e3a5f, #2563eb);
@@ -60,6 +89,7 @@ body {
 .topbar-brand p  { font-size: 11.5px; color: rgba(255,255,255,0.6); margin:0;}
 
 .topbar-nav { display: flex; gap: 6px; margin-left: 10px; }
+
 /* ── Navigasi yang stabil (Tidak bergeser) ── */
 .nav-btn {
     display: flex; 
@@ -228,6 +258,63 @@ tr:hover           { background: #e0f2fe; }
 .toast { position: fixed; bottom: 30px; right: 30px; background: white; border-left: 4px solid #22c55e; color: #1e293b; padding: 14px 20px; border-radius: 10px; font-size: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 9999; opacity: 0; transform: translateY(20px); transition: 0.3s; pointer-events: none; }
 .toast.show { opacity: 1; transform: translateY(0); }
 .toast.error { border-left-color: #ef4444; }
+
+/* ── Pembungkus Tombol ── */
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+/* ── Base Style Tombol (Dilebarin) ── */
+.btn {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 11px 36px;        /* Padding ditambah atas-bawah & kiri-kanan biar lebih lebar */
+    min-width: 130px;          /* Mengunci lebar minimal tombol agar seimbang dan proporsional */
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: none;
+    color: white !important;   /* Dipaksa putih karena kedua tombol sekarang pakai gradien gelap */
+    text-decoration: none;
+}
+
+/* Efek Hover Prosedural */
+.btn:hover {
+    opacity: 0.95;
+    transform: translateY(-2px);
+}
+.btn:active {
+    transform: translateY(0);
+}
+
+/* ── Tombol Batal (Merah Gradien) ── */
+.btn-ghost {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
+}
+
+/* ── Tombol Ya, Hapus (Biru Gradien) ── */
+.btn-danger {
+    background: linear-gradient(135deg, #1e3a5f, #2563eb);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.btn-danger:hover {
+    background-color: #f87171;
+}
+
+.btn-danger:active {
+    transform: translateY(0);
+}
+
 </style>
 </head>
 <body>
@@ -271,7 +358,7 @@ tr:hover           { background: #e0f2fe; }
             <div><?= $kat['total'] ?><br><small><?= $kat['nama_kategori'] ?></small></div>
             <div class="card-actions" onclick="event.stopPropagation()">
                 <button onclick="bukaEditKat(<?= $kat['id_kategori'] ?>, '<?= $kat['nama_kategori'] ?>')" title="Ubah"><i class="fa-solid fa-gear"></i></button>
-                <button onclick="bukaHapusKat(<?= $kat['id_kategori'] ?>, '<?= $kat['nama_kategori'] ?>')" title="Hapus"><i class="fa-solid fa-trash"></i></button>
+                <button onclick="bukaHapusKat(<?= $kat['id_kategori'] ?>, '<?= $kat['nama_kategori'] ?>')" title="Hapuwws"><i class="fa-solid fa-trash"></i></button>
             </div>
         </div>
         <?php endforeach; ?>
@@ -387,9 +474,11 @@ tr:hover           { background: #e0f2fe; }
         </div>
         <h3 style="margin:0 0 8px; color:#1e293b;">Hapus Kategori?</h3>
         <p id="hapusKatNama" style="color:#64748b; font-size:13px; margin:0 0 1.5rem;"></p>
-        <div style="display:flex; gap:10px;">
-            <button onclick="tutupHapusKat()" style="flex:1; padding:9px; border-radius:8px; border:1.5px solid #e2e8f0; background:transparent; color:#475569; cursor:pointer; font-family:'Poppins',sans-serif;">Batal</button>
-            <a id="linkHapusKat" href="#" style="flex:1; padding:9px; border-radius:8px; background:#ef4444; color:white; text-decoration:none; display:inline-block; font-weight:600;">Ya, Hapus</a>
+        <div class="modal-actions">
+            <button type="button" class="btn btn-ghost" onclick="tutupModal('modalHapus')">Batal</button>
+            <button type="submit" class="btn btn-danger" id="btn_hapus_submit">
+                <i class="fa-solid fa-trash"></i> Ya, Hapus
+            </button>
         </div>
     </div>
 </div>
