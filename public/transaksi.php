@@ -32,14 +32,16 @@ body {
 }
 
 /* ---- NAV ---- */
-.topbar {
-    background: linear-gradient(135deg, #1e3a5f, #2563eb);
-    color: white;
-    padding: 14px 30px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+.topbar { 
+    background: linear-gradient(135deg, #1e3a5f, #2563eb); 
+    color: white; 
+    padding: 14px 30px; 
+    display: flex; align-items: center; gap: 20px; 
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15); 
+    position: sticky; 
+    top: 0; 
+    z-index: 998; /* Jadikan sticky agar bisa dikontrol JS */
+    transition: top 0.3s ease-in-out; /* Animasi mulus */
 }
 .topbar h1 { font-size: 20px; font-weight: 700; }
 .topbar p  { font-size: 12px; opacity: 0.75; }
@@ -423,12 +425,17 @@ function hapusItem(id) {
 
 function renderKeranjang() {
     const list  = document.getElementById('cartList');
-    const empty = document.getElementById('cartEmpty');
     const ids   = Object.keys(keranjang);
 
     if (ids.length === 0) {
-        list.innerHTML = '';
-        list.appendChild(empty);
+        // Tampilan keranjang kosong diinjeksi ulang agar tidak error
+        list.innerHTML = `
+            <div class="cart-empty" id="cartEmpty">
+                <i class="fa-solid fa-cart-shopping"></i>
+                Keranjang masih kosong.<br>
+                <small>Klik barang untuk menambahkan.</small>
+            </div>
+        `;
         document.getElementById('subtotalText').textContent = 'Rp 0';
         document.getElementById('totalText').textContent    = 'Rp 0';
         document.getElementById('jumlah_bayar').value = '';
@@ -490,15 +497,13 @@ function hitungKembalian() {
 document.getElementById('nama_pelanggan').addEventListener('input', hitungKembalian);
 
 function prosesBayar() {
-
     const ids  = Object.keys(keranjang);
     if (!ids.length) return;
 
     const nama    = document.getElementById('nama_pelanggan').value.trim() || 'Umum';
     const bayar   = parseInt(document.getElementById('jumlah_bayar').value) || 0;
     const kasirId = parseInt(document.getElementById('pilih_kasir').value) || 0;
-
-    const error = document.getElementById('errorNama');
+    const error   = document.getElementById('errorNama');
 
     if (/[^a-zA-Z\s]/.test(nama)) {
         error.style.display = "block";
@@ -513,13 +518,10 @@ function prosesBayar() {
     }
 
     let total = 0;
-
     const items = ids.map(id => {
         const item = keranjang[id];
         const sub  = item.harga * item.jumlah;
-
         total += sub;
-
         return {
             id_barang: id,
             nama_barang: item.nama,
@@ -598,8 +600,13 @@ function resetKeranjang() {
         const card = document.getElementById('card-' + id);
         if (card) card.classList.remove('in-cart');
     });
+    
+    // Perbaikan: Semua form kasir otomatis bersih
     document.getElementById('nama_pelanggan').value = '';
     document.getElementById('jumlah_bayar').value   = '';
+    document.getElementById('pilih_kasir').selectedIndex = 0; 
+    document.getElementById('errorNama').style.display = 'none';
+    
     renderKeranjang();
 }
 
@@ -620,12 +627,29 @@ window.onload = () => {
 
 function validasiNama(input) {
     let value = input.value;
-
     if (/[^a-zA-Z\s]/.test(value)) {
         alert("Nama pelanggan tidak boleh mengandung angka!");
         input.value = value.replace(/[^a-zA-Z\s]/g, '');
     }
-};
+}
+// --- Sistem Topbar Pintar (Sembunyi saat turun, Muncul saat naik) ---
+let lastScrollTop = 0;
+const topbar = document.querySelector('.topbar');
+
+window.addEventListener('scroll', function() {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // Jika scroll ke bawah dan sudah melewati area header (70px)
+    if (scrollTop > lastScrollTop && scrollTop > 70) {
+        topbar.style.top = "-100px"; // Dorong topbar ke luar layar atas
+    } else {
+        // Jika scroll ke atas sedikit saja
+        topbar.style.top = "0"; // Tarik topbar kembali ke layar
+    }
+    
+    // Simpan posisi scroll terakhir
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+}, { passive: true });
 </script>
 </body>
 </html>

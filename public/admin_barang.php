@@ -76,7 +76,12 @@ body {
     background: linear-gradient(135deg, #1e3a5f, #2563eb);
     padding: 0 28px; display: flex; align-items: center; gap: 14px;
     box-shadow: 0 4px 20px rgba(30,58,95,0.35);
-    position: sticky; top: 0; z-index: 100; min-height: 70px; flex-wrap: wrap;
+    position: sticky; 
+    top: 0; 
+    z-index: 998; /* Diperbesar agar selalu di atas tabel/kartu */
+    min-height: 70px; 
+    flex-wrap: wrap;
+    transition: top 0.3s ease-in-out; /* Animasi mulus saat hilang/muncul */
 }
 .topbar-brand { flex: 1; min-width: 200px; }
 .badge-admin {
@@ -358,13 +363,12 @@ tr:hover           { background: #e0f2fe; }
             <div><?= $kat['total'] ?><br><small><?= $kat['nama_kategori'] ?></small></div>
             <div class="card-actions" onclick="event.stopPropagation()">
                 <button onclick="bukaEditKat(<?= $kat['id_kategori'] ?>, '<?= $kat['nama_kategori'] ?>')" title="Ubah"><i class="fa-solid fa-gear"></i></button>
-                <button onclick="bukaHapusKat(<?= $kat['id_kategori'] ?>, '<?= $kat['nama_kategori'] ?>')" title="Hapuwws"><i class="fa-solid fa-trash"></i></button>
             </div>
         </div>
         <?php endforeach; ?>
 
         <?php if (!empty($sisanya)): ?>
-        <div class="card kat-color-7" style="position:relative;" onclick="event.stopPropagation(); toggleKatLain()">
+        <div class="card kat-color-7" style="position:relative; z-index: 150;" onclick="event.stopPropagation(); toggleKatLain()">
             <div class="icon"><i class="fa-solid fa-layer-group"></i></div>
             <div>+<?= count($sisanya) ?><br><small>Kategori Lainnya ▾</small></div>
 
@@ -384,10 +388,6 @@ tr:hover           { background: #e0f2fe; }
                         <button onclick="bukaEditKat(<?= $kat['id_kategori'] ?>, '<?= $kat['nama_kategori'] ?>')"
                                 style="background:#e0f2fe; border:none; border-radius:5px; color:#0369a1; width:24px; height:24px; cursor:pointer; font-size:10px;">
                             <i class="fa-solid fa-gear"></i>
-                        </button>
-                        <button onclick="bukaHapusKat(<?= $kat['id_kategori'] ?>, '<?= $kat['nama_kategori'] ?>')"
-                                style="background:#fee2e2; border:none; border-radius:5px; color:#ef4444; width:24px; height:24px; cursor:pointer; font-size:10px;">
-                            <i class="fa-solid fa-trash"></i>
                         </button>
                     </span>
                 </div>
@@ -537,6 +537,24 @@ tr:hover           { background: #e0f2fe; }
         const dd = $('dropdownKatLain');
         if (dd && !dd.closest('.card').contains(e.target)) dd.style.display = 'none';
     });
+    // --- Sistem Topbar Pintar (Sembunyi saat turun, Muncul saat naik) ---
+    let lastScrollTop = 0;
+    const topbar = document.querySelector('.topbar');
+
+    window.addEventListener('scroll', function() {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Jika scroll ke bawah dan sudah melewati area header (70px)
+        if (scrollTop > lastScrollTop && scrollTop > 70) {
+            topbar.style.top = "-100px"; // Dorong topbar ke luar layar atas
+        } else {
+            // Jika scroll ke atas sedikit saja
+            topbar.style.top = "0"; // Tarik topbar kembali ke layar
+        }
+        
+        // Simpan posisi scroll terakhir
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    }, { passive: true });
 </script>
 </body>
 </html>

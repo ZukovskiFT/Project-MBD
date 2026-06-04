@@ -61,7 +61,17 @@ $kasirList = $conn->query("SELECT id_kasir, nama_kasir FROM kasir ORDER BY nama_
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #e8f4fd 0%, #f0f7ee 50%, #fef9e7 100%); color: #1e293b; min-height: 100vh; }
 
-.topbar { background: linear-gradient(135deg, #1e3a5f, #2563eb); color: white; padding: 14px 30px; display: flex; align-items: center; gap: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+.topbar { 
+    background: linear-gradient(135deg, #1e3a5f, #2563eb); 
+    color: white; 
+    padding: 14px 30px; 
+    display: flex; align-items: center; gap: 20px; 
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15); 
+    position: sticky; 
+    top: 0; 
+    z-index: 998; /* Jadikan sticky agar bisa dikontrol JS */
+    transition: top 0.3s ease-in-out; /* Animasi mulus */
+}
 .topbar h1 { font-size: 20px; font-weight: 700; }
 .topbar p  { font-size: 12px; opacity: 0.75; }
 .topbar-nav { margin-left: auto; display: flex; gap: 10px; }
@@ -348,6 +358,25 @@ function tampilToast(pesan, tipe = 'sukses') {
     t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 3000);
 }
+
+// --- Sistem Topbar Pintar (Sembunyi saat turun, Muncul saat naik) ---
+let lastScrollTop = 0;
+const topbar = document.querySelector('.topbar');
+
+window.addEventListener('scroll', function() {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // Jika scroll ke bawah dan sudah melewati area header (70px)
+    if (scrollTop > lastScrollTop && scrollTop > 70) {
+        topbar.style.top = "-100px"; // Dorong topbar ke luar layar atas
+    } else {
+        // Jika scroll ke atas sedikit saja
+        topbar.style.top = "0"; // Tarik topbar kembali ke layar
+    }
+    
+    // Simpan posisi scroll terakhir
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+}, { passive: true });
 </script>
 </body>
 </html>

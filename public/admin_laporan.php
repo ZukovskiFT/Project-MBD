@@ -70,7 +70,12 @@ body {
     background: linear-gradient(135deg, #1e3a5f, #2563eb);
     padding: 0 28px; display: flex; align-items: center; gap: 14px;
     box-shadow: 0 4px 20px rgba(30,58,95,0.35);
-    position: sticky; top: 0; z-index: 100; min-height: 70px; flex-wrap: wrap;
+    position: sticky; 
+    top: 0; 
+    z-index: 998; /* Diperbesar agar selalu di atas tabel/kartu */
+    min-height: 70px; 
+    flex-wrap: wrap;
+    transition: top 0.3s ease-in-out; /* Animasi mulus saat hilang/muncul */
 }
 .topbar-brand { flex: 1; min-width: 200px; }
 .badge-admin {
@@ -155,7 +160,6 @@ body {
 }
 .form-control:focus { border-color: #2563eb; }
 
-/* ── Table ── */
 /* ── Table ── */
 .table-wrap { overflow-x: auto; border-radius: 12px; }
 table { width: 100%; border-collapse: collapse; overflow: hidden; }
@@ -422,6 +426,25 @@ function tutupDetail() {
 window.onclick = e => {
     if (e.target === document.getElementById('modalDetail')) tutupDetail();
 };
+
+// --- Sistem Topbar Pintar (Sembunyi saat turun, Muncul saat naik) ---
+let lastScrollTop = 0;
+const topbar = document.querySelector('.topbar');
+
+window.addEventListener('scroll', function() {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // Jika scroll ke bawah dan sudah melewati area header (70px)
+    if (scrollTop > lastScrollTop && scrollTop > 70) {
+        topbar.style.top = "-100px"; // Dorong topbar ke luar layar atas
+    } else {
+        // Jika scroll ke atas sedikit saja
+        topbar.style.top = "0"; // Tarik topbar kembali ke layar
+    }
+    
+    // Simpan posisi scroll terakhir
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+}, { passive: true });
 </script>
 
 </body>
