@@ -87,7 +87,7 @@ Project_MBD/
 │   └── admin_laporan.php
 │
 ├── tokoelektroniksuryamakmur.sql   ← File SQL siap import
-├── LICENSE   ← File SQL siap import
+├── LICENSE
 └── README.md
 ```
 
